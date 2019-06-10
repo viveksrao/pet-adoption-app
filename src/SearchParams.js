@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import pet, { ANIMALS } from '@frontendmasters/pet';
 import Results from './Results';
 import useDropdown from './useDropdown';
+import ThemeContext from './ThemeContext';
 
 
 const SearchParams = () => {
@@ -10,6 +11,7 @@ const SearchParams = () => {
   const [animal, AnimalDropdown] = useDropdown("Animal", "Dog", ANIMALS);
   const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
   const [pets, setPets] = useState([]);
+  const [theme, setTheme] = useContext(ThemeContext);
 
   async function requestPets() {
     const { animals } = await pet.animals({
@@ -43,13 +45,26 @@ const SearchParams = () => {
           </div>
           <AnimalDropdown />
           <BreedDropdown />
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <div className="form-group">
+            <label htmlFor="theme">Theme</label>
+            <select
+              className="form-control"
+              value={theme}
+              onChange={e => setTheme(e.target.value)}
+              onBlur={e => setTheme(e.target.value)}>
+              <option value="peru">Peru</option>
+              <option value="darkblue">Dark Blue</option>
+              <option value="mediumorchid">Medium Orchid</option>
+              <option value="chartreuse">Chartreuse</option>
+            </select>
+          </div>
+          <button type="submit" className="btn btn-primary" style={{ backgroundColor: theme }}>Submit</button>
         </form>
       </div>
       <div className="col-8">
         <Results pets={pets} />
       </div>
-    </div>
+    </div >
   );
 }
 

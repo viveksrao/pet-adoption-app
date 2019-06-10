@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from '@reach/router';
+
 export default function Pet({ name, animal, breed, media, location, id }) {
   let hero = 'http://placecorgi.com/600/600';
   if (media.length) {
@@ -14,7 +16,7 @@ export default function Pet({ name, animal, breed, media, location, id }) {
           <div className="card-body text-dark">
             <h5 className="card-title">{name}</h5>
             <p className="card-text">{`${animal} — ${breed} — ${location}`}</p>
-            <a href={`/details/${id}`} className="btn btn-primary">View Details</a>
+            <Link to={`/details/${id}`} className="btn btn-primary">View Details</Link>
           </div>
         </div>
       </div>
